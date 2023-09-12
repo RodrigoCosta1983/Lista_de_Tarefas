@@ -45,10 +45,10 @@ class _TodoListPageState extends State<TodoListPage> {
                         String text = TodoController
                             .text; // leio o texto e add na variavel text
                         setState(() {
-                          Todo newTodo = Todo(   // criando um Objeto todo e instanciar
+                          Todo newTodo = Todo(
+                            // criando um Objeto todo e instanciar
                             title: text,
                             dateTime: DateTime.now(),
-
                           );
                           todos.add(newTodo); // adcionei na lista de tarefas
                         });
@@ -82,7 +82,7 @@ class _TodoListPageState extends State<TodoListPage> {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                     Expanded(
+                    Expanded(
                       child: Text(
                         'Voce possui ${todos.length} tarefas pendentes!!',
                       ),
