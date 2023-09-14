@@ -74,7 +74,8 @@ class _TodoListPageState extends State<TodoListPage> {
                     children: [
                       for (Todo todo in todos)
                         TodoListItem(
-                          todo: todo,
+                          todo: todo, //Parametro para passar do Widget para o Widget pai.
+                          onDelete: onDelete,
                         ),
                     ],
                   ),
@@ -104,5 +105,11 @@ class _TodoListPageState extends State<TodoListPage> {
         ),
       ),
     );
+  }
+  void onDelete(Todo todo){
+    setState(() {
+      todos.remove(todo);
+    });
+
   }
 }
