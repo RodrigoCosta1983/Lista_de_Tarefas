@@ -16,6 +16,8 @@ class _TodoListPageState extends State<TodoListPage> {
   final now = DateTime.now();
 
   List<Todo> todos = []; //Lista de Objeto todo
+  Todo? deletedTodo; //nullable pq inicia-se com a variável vazia
+  int? deletedTodoPos;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,8 @@ class _TodoListPageState extends State<TodoListPage> {
                     children: [
                       for (Todo todo in todos)
                         TodoListItem(
-                          todo: todo, //Parametro para passar do Widget para o Widget pai.
+                          todo: todo,
+                          //Parametro para passar do Widget para o Widget pai.
                           onDelete: onDelete,
                         ),
                     ],
@@ -106,10 +109,33 @@ class _TodoListPageState extends State<TodoListPage> {
       ),
     );
   }
-  void onDelete(Todo todo){
+
+  void onDelete(Todo todo) {
+    deletedTodo = todo;
+    deletedTodoPos = todos.indexOf(todo);
+
     setState(() {
       todos.remove(todo);
     });
-
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Tarefa ${todo.title} deletada com sucesso!!',
+          style: const TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        action: SnackBarAction(
+          label: 'Desfazer',
+          textColor: Colors.green,
+          onPressed: () {
+            setState(() {
+              todos.insert(deletedTodoPos!, deletedTodo!);
+            });
+          },
+        ),
+        duration: const Duration(seconds: 5),
+      ),
+    );
   }
 }
