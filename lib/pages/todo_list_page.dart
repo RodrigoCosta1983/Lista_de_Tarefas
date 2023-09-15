@@ -10,7 +10,7 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  final TextEditingController TodoController =
+  final TextEditingController todoController =
       TextEditingController(); //controlador para pegar o texto
 
   final now = DateTime.now();
@@ -33,7 +33,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   children: [
                     Expanded(
                       child: TextField(
-                        controller: TodoController,
+                        controller: todoController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Adcione uma Tarefa',
@@ -44,7 +44,7 @@ class _TodoListPageState extends State<TodoListPage> {
                     const SizedBox(width: 8),
                     ElevatedButton(
                       onPressed: () {
-                        String text = TodoController
+                        String text = todoController
                             .text; // leio o texto e add na variavel text
                         setState(() {
                           Todo newTodo = Todo(
@@ -54,10 +54,10 @@ class _TodoListPageState extends State<TodoListPage> {
                           );
                           todos.add(newTodo); // adcionei na lista de tarefas
                         });
-                        TodoController.clear();
+                        todoController.clear();
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: const Color(0xff00d7f3),
+                        backgroundColor: const Color(0xff00d7f3),
                         padding: const EdgeInsets.all(14),
                       ),
                       child: const Icon(
@@ -93,9 +93,9 @@ class _TodoListPageState extends State<TodoListPage> {
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: showDeleteTodosConfirmationDialog,
                       style: ElevatedButton.styleFrom(
-                        primary: const Color(0xff00d7f3),
+                        backgroundColor: const Color(0xff00d7f3),
                         padding: const EdgeInsets.all(14),
                       ),
                       child: const Text('Limpar tudo'),
@@ -137,5 +137,38 @@ class _TodoListPageState extends State<TodoListPage> {
         duration: const Duration(seconds: 5),
       ),
     );
+  }
+
+  void showDeleteTodosConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Limpar Tudo?'),
+        content: const Text('Tem certeza que deseja apagar todas as tarefas?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(backgroundColor: const Color(0xff00d7f3)),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              deleteAllTodos();
+            },
+            style: TextButton.styleFrom(backgroundColor:  Colors.red),
+            child: const Text('Limpar Tudo'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void deleteAllTodos() {
+    setState(() {
+      todos.clear();
+    });
   }
 }
