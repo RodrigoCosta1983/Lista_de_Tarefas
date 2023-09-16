@@ -9,6 +9,7 @@ class TodoListItem extends StatelessWidget {
   final Todo todo;
   final Function(Todo) onDelete;
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,13 +28,13 @@ class TodoListItem extends StatelessWidget {
               icon: Icons.delete,
               label: 'Deletar',
             ),
-            const SlidableAction(
+            /*const SlidableAction(
               onPressed: null,
               backgroundColor: Color(0xFF21B7CA),
               foregroundColor: Colors.white,
               icon: Icons.share,
               label: 'Share',
-            ),
+            ),*/
           ],
         ),
         child: Container(
@@ -48,7 +49,8 @@ class TodoListItem extends StatelessWidget {
               Text(
                 DateFormat('dd/MMM/yyyy HH:mm').format(todo.dateTime),
                 // ou como formatado na linha abaixo
-                //todo.dateTime.toString().substring(0,16), // formatando o dateTime
+                // todo.dateTime.toString().substring(0,16),
+                // formatando o dateTime
                 style: const TextStyle(
                   fontSize: 12,
                 ),

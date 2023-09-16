@@ -34,10 +34,20 @@ class _TodoListPageState extends State<TodoListPage> {
                     Expanded(
                       child: TextField(
                         controller: todoController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Adcione uma Tarefa',
-                          hintText: 'ex. Fazer um bolo',
+                        decoration:const InputDecoration(
+                          border:  OutlineInputBorder(),
+                          labelText: 'Adicione uma tarefa aqui',
+                          hintText: 'Ex.: Estudar Flutter',
+                         // errorText: errorText,
+                          focusedBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xff00d7f3),
+                              width: 3,
+                            ),
+                          ),
+                          labelStyle:  TextStyle(
+                            color: Color(0xff00d7f3),
+                          ),
                         ),
                       ),
                     ),
@@ -48,7 +58,7 @@ class _TodoListPageState extends State<TodoListPage> {
                             .text; // leio o texto e add na variavel text
                         setState(() {
                           Todo newTodo = Todo(
-                            // criando um Objeto todo e instanciar
+                            // criando um Objeto 'todo' e instanciando
                             title: text,
                             dateTime: DateTime.now(),
                           );
@@ -150,7 +160,8 @@ class _TodoListPageState extends State<TodoListPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            style: TextButton.styleFrom(backgroundColor: const Color(0xff00d7f3)),
+            style:
+                TextButton.styleFrom(backgroundColor: const Color(0xff00d7f3)),
             child: const Text('Cancelar'),
           ),
           TextButton(
@@ -158,7 +169,7 @@ class _TodoListPageState extends State<TodoListPage> {
               Navigator.of(context).pop();
               deleteAllTodos();
             },
-            style: TextButton.styleFrom(backgroundColor:  Colors.red),
+            style: TextButton.styleFrom(backgroundColor: Colors.red),
             child: const Text('Limpar Tudo'),
           ),
         ],
